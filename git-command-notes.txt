@@ -64,12 +64,12 @@ Git commands
 // Reset permenently the repository to an older version of the repository.
 >git reset <first six characters of hash> --hard
 
-// Connect to a GitHub repository.
+// Pushing pre-existing local repository to GitHub repository (have your GitHub credentials ready).
+// Create a repository on GitHub with the same name.
+// Connect to that GitHub repository.
 >git remote add <nickname> <Remote repository's URL>
 // Example:
 >git remote add tutorial01 https://github.com/djredanz/tutorial01.git
-
-// Pushing your files to your GitHub repository (have your GitHub credentials ready).
 >git push -u <repository nickname or Remote repository's URL> <branch name>
 // Example:
 >git push -u tutorial01 master
