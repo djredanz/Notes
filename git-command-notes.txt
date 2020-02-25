@@ -1,0 +1,102 @@
+Git commands
+
+// List the configurations information.
+>git config --list
+
+// Configure your name and email info for tracking your changes.
+>git config --global user.name "<author's name>"
+>git config --global user.email "author's email>"
+
+// List one setting.
+>git config user.email
+
+// Start a git respository
+>git init
+
+// Git ignore file.
+// Add file names that you want git to ignore.
+>touch .gitignore
+
+// Add changes to our files to the staging area.
+>git add -A
+>git add .
+>git add <list of file namesgit >
+
+// Adds the changes in the staging area to the local repository.
+>git commit -m "<commit message>"
+
+// Skip adding to the staging area. Good for small changes.
+// Warning, be sure that you want everything in your working files commited.
+>git commit -am "<commit message>"
+
+// To view commit history.
+>git log
+>git log --author="<name>"
+>git log --oneline // condensed log printout
+
+// Self explanitory
+>git status
+
+// Diff working files with copy in local repository
+>git diff
+// Diff working files with copy in staging area.
+>git diff --staged 
+
+// Deleting files.
+>git rm <file list>
+
+
+// Rename a file.
+>git mv <old file name> <new file name>
+
+// Undo changes made in project's working files.
+>git checkout -- <file name>
+
+// Unstage files.
+>git reset HEAD <list of file names>
+
+// Switching the working directory to contain an older versioins in the repository.
+>git checkout <first six characters of hash>
+
+// Reverting the repository to an older version of the repository.
+>git revert <first six characters of hash>
+
+// Reset permenently the repository to an older version of the repository.
+>git reset <first six characters of hash> --hard
+
+// Connect to a GitHub repository.
+>git remote add <nickname> <Remote repository's URL>
+// Example:
+>git remote add tutorial01 https://github.com/djredanz/tutorial01.git
+
+// Pushing your files to your GitHub repository (have your GitHub credentials ready).
+>git push -u <repository nickname or Remote repository's URL> <branch name>
+// Example:
+>git push -u tutorial01 master
+
+// Pushing your files to your GitHub repository (have your GitHub credentials ready).
+>git push <Remote repository's URL> <branch name>
+// Example:
+>git push https://github.com/djredanz/git-one.git master
+
+// List all branches in the repository
+>git branch -a
+
+// Create a new branch
+>git branch <new branch name>
+
+// Switch to another branch
+>git checkout <branch name>
+
+// Delete a local branch.
+>git branch -d <branch name>
+// Force a delete
+>git branch -D <branch name>
+
+// Merging branches.
+>git branch <the name of the branch to merge into (usually master)>
+>git merge <the name of the branch to merge from>
+
+// Clonig a remote repository.
+// Do this from the directory where you want this repository to reside.
+>git clone <Remote repository's URL>
