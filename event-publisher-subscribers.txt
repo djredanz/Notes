@@ -2,11 +2,11 @@
 
 1. Define a subclass EventsArgs for your event arguments.
 example:
-public class TextPublisherEventArgs : EventArgs
+public class PublisherEventArgs : EventArgs
 {
 	public readonly string textMessage;
 	
-	public TextPublisherEventArgs(string text)
+	public PublisherEventArgs(string text)
 	{
 		if(text != null)
 		{
@@ -17,17 +17,18 @@ public class TextPublisherEventArgs : EventArgs
 
 2. Define a class for your event publisher.
 example:
-public class TextPublisher
+public class Publisher
 {
 	string textMessage = "Default Text.";
 	
-	public event EventHandler<TextPublisherEventArgs> EventSubscibers;
+	public event EventHandler<PublisherEventArgs> EventSubscibers;
 	
-	protected virtual void OnTextPublish(object sender, TextPublisherEventArgs e)
+	protected virtual void OnPublishEvent(object sender, PublisherEventArgs e)
 	{
 		EventSubscibers?.Invoke(this, e);
 	}
 	
+	// Event is triggered when text is asigned to TextMessage.
 	public string TextMessage
 	{
 		get { return textMessage; }
@@ -37,8 +38,8 @@ public class TextPublisher
 			if(value != null)
 			{
 				textMessage = value;
-				var textPublisherEventArgs = new TextPublisherEventArgs(textMessage);
-				OnTextPublish(this, textPublisherEventArgs );
+				var eventArgs = new PublisherEventArgs(textMessage);
+				OnPublishEvent(this, eventArgs );
 			}
 		}
 	}
@@ -47,37 +48,51 @@ public class TextPublisher
 
 3. Define subscriber classes.
 Example 1:
-public class MailService
+public class Subscriber1
 {
-	public void OnTextPublish(object source, TextPublisherEventArgs e)
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
 	{
-		Console.WriteLine("MailService: Sending an email..." + e.textMessage);
+		Console.WriteLine("Subscriber1: Processing messege..." + e.textMessage);
 		
 	}
 } 
 
 Example 2;
-public class MessageService
+public class Subscriber2
 {
-	public void OnTextPublish(object source, TextPublisherEventArgs e)
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
 	{
-		Console.WriteLine("MessageService: Sending an email..." + e.textMessage);
+		Console.WriteLine("Subscriber2: Processing messege..." + e.textMessage);
+		
 	}
 }
+
+Example 3:
+public class Subscriber3
+{
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
+	{
+		Console.WriteLine("Subscriber3: Processing messege..." + e.textMessage);
+		
+	}
+} 
 
 
 4. Add defintions to the main program.
 Example:
 static void Main(string[] args)
 {
-	var textPublisher = new TextPublisher();
-	var mailService = new MailService();
-	var messageService = new MessageService();
+	var publisher = new Publisher();
+	var subscriber1 = new Subscriber1();
+	var subscriber2 = new Subscriber2();
+	var subscriber3 = new Subscriber3();
 	
-	textPublisher.EventSubscibers += mailService;
-	textPublisher.EventSubscibers += messageService;
+	publisher.EventSubscibers += subscriber1;
+	publisher.EventSubscibers += subscriber2;
+	publisher.EventSubscibers += subscriber3;
 	
-	textPublisher.TextMessage = "Hello, World!";
+	// Event ocurrs and publisher will publish event to subscribers.
+	publisher.TextMessage = "Hello, World!";
 	
 	Console.WriteLine("Press any key to continue...");
 	Console.ReadKey();
