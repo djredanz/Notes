@@ -18,9 +18,14 @@ Git commands
 >touch .gitignore
 
 // Add changes to our files to the staging area.
->git add -A
->git add .
->git add <list of file namesgit >
+>git add -A <optional specific files and or directories>
+>git add <optional specific files and or directories>
+// Current directory only, not recursive.
+>git add . <optional specific files and or directories>
+
+
+// Adds only modified and deleted files but not untracked files.
+>git add -u
 
 // Adds the changes in the staging area to the local repository.
 >git commit -m "<commit message>"
@@ -72,12 +77,15 @@ Git commands
 >git remote add tutorial01 https://github.com/djredanz/tutorial01.git
 >git push -u <repository nickname or Remote repository's URL> <branch name>
 // Example:
->git push -u tutorial01 master
+>git push -u orign master
 
 // Pushing your files to your GitHub repository (have your GitHub credentials ready).
 >git push <Remote repository's URL> <branch name>
 // Example:
 >git push https://github.com/djredanz/git-one.git master
+
+// Force the push, usually after deleting commits locally and want to push the to the remote.
+>git push origin +master
 
 // List all branches in the repository
 >git branch -a
@@ -94,7 +102,7 @@ Git commands
 >git branch -D <branch name>
 
 // Merging branches.
->git branch <the name of the branch to merge into (usually master)>
+>git checkout <the name of the branch to merge into (usually master)>
 >git merge <the name of the branch to merge from>
 
 // Clonig a remote repository.

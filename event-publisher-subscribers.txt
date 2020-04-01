@@ -1,0 +1,100 @@
+// C# Events
+
+1. Define a subclass EventsArgs for your event arguments.
+example:
+public class PublisherEventArgs : EventArgs
+{
+	public readonly string textMessage;
+	
+	public PublisherEventArgs(string text)
+	{
+		if(text != null)
+		{
+			textMessage = text;
+		}
+	}
+}
+
+2. Define a class for your event publisher.
+example:
+public class Publisher
+{
+	string textMessage = "Default Text.";
+	
+	public event EventHandler<PublisherEventArgs> EventSubscibers;
+	
+	protected virtual void OnPublishEvent(object sender, PublisherEventArgs e)
+	{
+		EventSubscibers?.Invoke(this, e);
+	}
+	
+	// Event is triggered when text is asigned to TextMessage.
+	public string TextMessage
+	{
+		get { return textMessage; }
+		
+		set
+		{
+			if(value != null)
+			{
+				textMessage = value;
+				var eventArgs = new PublisherEventArgs(textMessage);
+				OnPublishEvent(this, eventArgs );
+			}
+		}
+	}
+}
+
+
+3. Define subscriber classes.
+Example 1:
+public class Subscriber1
+{
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
+	{
+		Console.WriteLine("Subscriber1: Processing messege..." + e.textMessage);
+		
+	}
+} 
+
+Example 2;
+public class Subscriber2
+{
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
+	{
+		Console.WriteLine("Subscriber2: Processing messege..." + e.textMessage);
+		
+	}
+}
+
+Example 3:
+public class Subscriber3
+{
+	public void OnPublisherEvent(object source, PublisherEventArgs e)
+	{
+		Console.WriteLine("Subscriber3: Processing messege..." + e.textMessage);
+		
+	}
+} 
+
+
+4. Add defintions to the main program.
+Example:
+static void Main(string[] args)
+{
+	var publisher = new Publisher();
+	var subscriber1 = new Subscriber1();
+	var subscriber2 = new Subscriber2();
+	var subscriber3 = new Subscriber3();
+	
+	publisher.EventSubscibers += subscriber1;
+	publisher.EventSubscibers += subscriber2;
+	publisher.EventSubscibers += subscriber3;
+	
+	// Event ocurrs and publisher will publish event to subscribers.
+	publisher.TextMessage = "Hello, World!";
+	
+	Console.WriteLine("Press any key to continue...");
+	Console.ReadKey();
+}
+
