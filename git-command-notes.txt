@@ -113,6 +113,28 @@ Git commands
 >git rebase <branch to rebase from>
 
 
+// Save local work on the Stash and revert local. Note: the stash is a stack.
+>git stash save "<message to remind you what changes you stashed.>"
+
+// To see a list of items on the stash.
+>git stash list
+
+// listing
+>stash@{0}: On add: <message to remind you what changes you stashed.>
+
+// To temporarily try a stash from the list (note, this does not delete the stashed item from the stash).
+>git stash apply stash@{0}
+
+// To permanently restore a stashed item and delete from the stash. Note: Stash is a stack.
+>git stash pop
+
+// To delete an item on the stash.
+>git stash drop
+
+// To delete everything on the stash.
+>git stash clear
+
+
 ////////////////////// The following is from https://www.themoderncoder.com ////////////////////////////
 -- Amending commits
 Amending refers to either adding files to, or removing files from a commit. Amend can also be used to change a commit’s log message, but today I want to use it to add files to a commit.
